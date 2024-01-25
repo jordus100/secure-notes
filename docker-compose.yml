@@ -6,5 +6,15 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: nextjs-container
-    ports:
-      - "3000:3000"
+  nginx:
+      image: nginx
+      container_name: nginx-container
+      ports:
+        - "443:443"
+        - "3000:3000"
+      volumes:
+        - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+        - ./nginx/cert.crt:/etc/nginx/cert.crt
+        - ./nginx/cert.key:/etc/nginx/cert.key
+      depends_on:
+        - nextjs
