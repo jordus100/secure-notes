@@ -1,7 +1,7 @@
 import {noteSchema, registerFormSchema} from "@/services/Validator";
 import {NextResponse} from "next/server";
 import {getServerSession} from "next-auth";
-import {authOptions} from "@/app/api/auth/[...nextauth]/route";
+import {authOptions} from "@/app/api/auth/[...nextauth]/AuthOptions";
 import {NoteService} from "@/services/NoteService";
 
 export async function POST(req: Request) {

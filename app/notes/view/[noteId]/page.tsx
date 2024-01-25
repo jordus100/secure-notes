@@ -1,5 +1,5 @@
 import {getServerSession} from "next-auth";
-import {authOptions} from "@/app/api/auth/[...nextauth]/route";
+import {authOptions} from "@/app/api/auth/[...nextauth]/AuthOptions";
 import {NoteService} from "@/services/NoteService";
 import {redirect} from "next/navigation";
 import EncryptedNote from "@/app/notes/view/[noteId]/EncryptedNote";
