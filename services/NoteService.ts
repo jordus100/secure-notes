@@ -53,5 +53,13 @@ export const NoteService = {
 
     getUserNotes: async (username) => {
         return await db.all("SELECT * FROM Notes WHERE username = ?", [username])
+    },
+
+    changeNoteVisibility: async (noteId, isPublic) => {
+        return await db.run("UPDATE Notes SET isPublic = ? WHERE ID = ?", [isPublic, noteId])
+    },
+
+    getPublicNote: async (noteId) => {
+        return await db.get("SELECT * FROM Notes WHERE ID = ? AND isPublic = 1", [noteId])
     }
 }

@@ -4,12 +4,14 @@ import {useState} from "react";
 import {passwordStrength} from "check-password-strength";
 import {noteSchema, registerFormSchema} from "@/services/Validator";
 import {Api} from "@/services/Api";
+import {redirect, useRouter} from "next/navigation";
 
 export default function AddNote() {
     const [formData, setFormData] = useState({
         title: '', note: '', isEncrypted: false, password: undefined
     })
     const [message, setMessage] = useState('')
+    const router = useRouter()
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -26,6 +28,8 @@ export default function AddNote() {
         }
         try {
             const res = await Api.post('note', noteData)
+            router.prefetch('/')
+            router.push('/#')
         } catch (e) {
             console.log(e)
             setMessage('Note adding failed')

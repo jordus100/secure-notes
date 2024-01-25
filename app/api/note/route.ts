@@ -38,3 +38,19 @@ export async function GET(req: Request) {
         return NextResponse.json({}, { status: 400 })
     }
 }
+
+export async function PUT(req: Request) {
+    try {
+        const data = await req.json()
+        const session = await getServerSession(authOptions)
+        if(session) {
+            await NoteService.changeNoteVisibility(data.noteId, data.isPublic)
+            return NextResponse.json({isPublic: data.isPublic}, { status: 200 })
+        } else {
+            return NextResponse.json({}, { status: 403 })
+        }
+    } catch(e) {
+        console.log(e)
+        return NextResponse.json({}, { status: 400 })
+    }
+}

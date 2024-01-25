@@ -7,7 +7,19 @@ import {catchClause} from "@babel/types";
 
 export default async function ViewNote({ params }: { params: { noteId: string } }) {
     const session = await getServerSession(authOptions)
-    if(session?.user.name) {
+    const publicNote = await NoteService.getPublicNote(Number(params.noteId))
+    if(publicNote) {
+        return (
+            <>
+                <h3>{publicNote.username}'s note</h3>
+                <h2>{publicNote.title}</h2>
+                <div>
+                    {publicNote.noteContent}
+                </div>
+            </>
+        )
+    }
+    else if(session?.user.name) {
         try {
             if (!(await NoteService.checkIfNoteEncrypted(Number(params.noteId), session.user.name))) {
                 const note = await NoteService.getUnencryptedNote(Number(params.noteId), session.user.name)

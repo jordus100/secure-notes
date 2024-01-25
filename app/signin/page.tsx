@@ -3,6 +3,7 @@
 import {useEffect, useState} from "react";
 import {signIn, useSession} from "next-auth/react";
 import {redirect, useRouter} from "next/navigation";
+import Link from "next/link";
 
 export default function SignInForm() {
     const [formData, setFormData] = useState({
@@ -45,6 +46,8 @@ export default function SignInForm() {
                        }}></input>
                 <br/>
                 <input type="submit" value="Log in"></input>
+                <br/>
+                <Link href="register">...or register</Link>
             </form>
             <p>{message}</p>
         </>
